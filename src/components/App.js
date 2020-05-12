@@ -9,8 +9,8 @@ import Tasks from '../abis/Tasks.json'
 import TextField from '@material-ui/core/TextField';
 class App extends Component {
   async componentWillMount() {
-    //await this.loadWeb3()
-    //await this.loadBlockchainData()
+    await this.loadWeb3()
+    await this.loadBlockchainData()
   }
   async loadWeb3() {
     if (window.ethereum) {
@@ -35,8 +35,8 @@ class App extends Component {
       const contract = new web3.eth.Contract(Tasks.abi, networkData.address)
       this.setState({ contract })
       const _task = await this.state.contract.methods.get().call()
-      this.setState({ tasks: _task })
-      console.log('tasks', this.state.tasks)
+      this.setState({ displayingString: _task })
+      console.log('tasks', this.state.displayingString)
     }
     else {
       window.alert('Smart contract not deployed to detected network.')
@@ -49,7 +49,8 @@ class App extends Component {
     this.state = {
       account: '',
       contract: '',
-      inputString: ""
+      inputString: "",
+      displayingString:''
     }
   }
 
@@ -66,6 +67,7 @@ class App extends Component {
         <div className="hero is-info">
           <div className="hero-body has-text-centered">
             <p className="title is-1">Ethereum Starter Kit</p>
+            <h3>Current account <br></br> {this.state.account}</h3>
           </div>
         </div><br></br>
         <div div className="top-container">
@@ -73,7 +75,7 @@ class App extends Component {
             <div className="form-div">
               <form onSubmit={() => { console.log('form submtt') }}>
                 <TextField
-                  id="outlined-basic" label="Insert Task" variant="outlined"
+                  id="outlined-basic" label="Insert Text" variant="outlined"
                   onChange={e => this.updateInput(e.target.value)}
                   value={this.state.inputString} />
               </form>
@@ -81,19 +83,20 @@ class App extends Component {
                 disabled={!this.state.inputString.length}
                 onClick={() => {
                   console.log("Submit button pressed")
-                  console.log('new Item', )
-               
-               return(
-                 <p>{this.state.inputString}</p>
-               )
-                  // this.state.contract.methods.updateArray().send({ from: this.state.account }).then((r) => {
 
-                  //   return this.setState({
-                  //     inputTask: ''
-                  //   })
-                  // })
+                  this.setState({displayingString: this.state.inputString})
+                  this.state.contract.methods.set(this.state.inputString).send({ from: this.state.account }).then((r) => {
+
+                    return this.setState({
+                      
+                    })
+                  })
                 }
-                }> ADD  </button>
+                }> ADD 
+                </button>
+
+                <p>{this.state.displayingString}</p>
+                
             </div></div></div>
       </div>
     );
