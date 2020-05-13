@@ -26,11 +26,32 @@ class App extends Component {
   }
   async loadBlockchainData() {
     const web3 = window.web3
+    const web3CurrentProvider = window.web3.currentProvider
+
+    console.log('window web3',web3CurrentProvider)
     // Load account
     const accounts = await new web3.eth.getAccounts()
     this.setState({ account: accounts[0] })
-    const networkId = await new web3.eth.net.getId()
+    const networkId= await new web3.eth.net.getId()
+
+    console.log('netID',networkId)
+
     const networkData = Tasks.networks[networkId]
+
+    console.log('netdata',networkData)
+/**
+ * 
+ * 
+ * 
+ * 
+ * else if (provider) {
+    const LoadProvider = new Web3.providers.HttpProvider(
+      provider
+    );
+    const web3 = new Web3(LoadProvider);
+    return (web3);
+  } 
+ */
     if (networkData) {
       const contract = new web3.eth.Contract(Tasks.abi, networkData.address)
       this.setState({ contract })
