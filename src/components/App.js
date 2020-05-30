@@ -4,9 +4,10 @@ import './App.css';
 import Web3 from 'web3';
 import './App.css';
 import Tasks from '../abis/Tasks.json'
-
+import '../assets/main.css'
 
 import TextField from '@material-ui/core/TextField';
+import Nav from './Nav';
 class App extends Component {
   async componentWillMount() {
     await this.loadWeb3()
@@ -82,25 +83,24 @@ class App extends Component {
   render() {
     return (
 
-
-      <div>
+      <div className=" bg-gray-200">
         
-        <div className="hero is-info">
-          <div className="hero-body has-text-centered">
-            <p className="title is-1">Ethereum Starter Kit</p>
+        
+<Nav/>
+          <div className="w-1/3 p-2 bg-gray-200">
+
+          <p className="w-1/3 p-2 title">Ethereum Starter Kit</p>
             <h3>Current account <br></br> {this.state.account}</h3>
-          </div>
-        </div><br></br>
-        <div div className="top-container">
-          <div className=" has-text-centered">
-            <div className="form-div">
+            <br/><br/>
+            <div className="form-div ">
               <form onSubmit={() => { console.log('form submtt') }}>
                 <TextField
                   id="outlined-basic" label="Insert Text" variant="outlined"
                   onChange={e => this.updateInput(e.target.value)}
                   value={this.state.inputString} />
               </form>
-              <button className="button is-black"
+              <br/>
+              <button className="button"
                 disabled={!this.state.inputString.length}
                 onClick={() => {
                   console.log("Submit button pressed")
@@ -115,16 +115,15 @@ class App extends Component {
                 }
                 }> ADD 
                 </button>
-
+                <br/>
+                
                 <p>{this.state.displayingString}</p>
                 
-            </div></div></div>
+            </div></div>
       </div>
     );
 
   }
 }
-
-
 
 export default App;

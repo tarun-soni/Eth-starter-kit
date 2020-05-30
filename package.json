@@ -14,7 +14,6 @@
     "babel-preset-stage-3": "latest",
     "babel-register": "latest",
     "bootstrap": "latest",
-    "bulma": "^0.8.2",
     "chai": "latest",
     "chai-as-promised": "latest",
     "chai-bignumber": "latest",
@@ -28,12 +27,17 @@
     "truffle": "latest",
     "web3": "latest"
   },
+  
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "npm run watch:css && react-scripts start",
+    "build": "npm run build:css && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:css": "postcss src/assets/tailwind.css -o src/assets/main.css", 
+    "watch:css": "postcss src/assets/tailwind.css -o src/assets/main.css"
   },
+
+  
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -42,5 +46,10 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "autoprefixer": "^9.8.0",
+    "postcss-cli": "^7.1.1",
+    "tailwindcss": "^1.4.6"
+  }
 }
