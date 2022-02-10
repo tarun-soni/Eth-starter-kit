@@ -18,7 +18,7 @@
     "chai-as-promised": "latest",
     "chai-bignumber": "latest",
     "dotenv": "^8.2.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "path": "^0.12.7",
     "react": "latest",
     "react-bootstrap": "latest",
